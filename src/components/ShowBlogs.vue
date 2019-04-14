@@ -7,7 +7,10 @@
     <div v-for="blog in filteredBlogs" class="single-blog">
         <!-- 自定义指令v-rainbow使用  让标题改变颜色 -->
         <!-- 数据值都变成大写  过滤器实现 左边为拿到的值 用value接收-->
-        <h2 v-rainbow>{{blog.title | to-uppercase}}</h2>
+        <!-- 路由跳转--router.js--到单个的blog，顺便传过去id   v-bind绑定数据 showblog:id--singleblog:id -->
+        <router-link v-bind:to="'/blog/' + blog.id">
+          <h2 v-rainbow>{{blog.title | to-uppercase}}</h2>
+        </router-link>
         <!-- 文章内容太长  点击详情再全部展示内容 -->
         <article>{{blog.body | snippet}}</article>
     </div>
@@ -72,5 +75,15 @@ h1{
     margin:20px 0;
     box-sizing:border-box;/**/
     background: #eee;
+    border:1px dotted #aaa;
+}
+#show-blogs a{
+  color: #444;
+  text-decoration: none;
+}
+input[type="text"]{
+  padding:8px;
+  width:100%;
+  box-sizing:border-box;/*对齐形式展示*/
 }
 </style>

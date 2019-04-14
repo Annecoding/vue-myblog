@@ -2,11 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-
+import VueRouter from 'vue-router';
 import App from './App'
+import Routes from './routes'
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
+Vue.use(VueRouter)
+
 //全局API
 //v-rainbow  自定义指令使用  改变h2标题标签颜色
 // Vue.directive('rainbow', {
@@ -39,9 +42,17 @@ Vue.filter("snippet",function(value){
   return value.slice(0,100) + "...";//实现截取文章展示
 })
 
+
+//创建路由并调用路由
+const router = new VueRouter({
+  routes:Routes, //使用路由-->router.js
+  mode:"history" //去掉路径的#
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  router:router,//最大的一层容器里面去使用
 })

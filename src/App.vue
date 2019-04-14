@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <HelloWorld/>
+    <!-- <HelloWorld/> -->
     <!-- <AddBlog/> -->
-    <show-blogs></show-blogs>
+    <!-- <show-blogs></show-blogs> -->
+    <blog-header></blog-header>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -11,11 +13,12 @@
 
 import AddBlog from './components/AddBlog'
 import ShowBlogs from './components/ShowBlogs'
+import BlogHeader from './components/BlogHeader'
 
 export default {
   name: 'App',
   components: {
-    AddBlog,ShowBlogs
+    AddBlog,ShowBlogs,BlogHeader
   }
 }
 </script>
