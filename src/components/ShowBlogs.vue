@@ -12,7 +12,10 @@
           <h2 v-rainbow>{{blog.title | to-uppercase}}</h2>
         </router-link>
         <!-- 文章内容太长  点击详情再全部展示内容 -->
-        <article>{{blog.body | snippet}}</article>
+        <article>
+          <!-- {{blog.body | snippet}} -->
+           {{blog.content | snippet}} 
+         </article>
     </div>
   </div>
 </template>
@@ -22,15 +25,30 @@ export default {
   name: 'show-blogs',
   data () {
     return {//返回对象
+    // response中所有的对象Object放在blogs[]里面
       blogs:[],
       search:""
     }
   },
   created(){//请求数据
-      this.$http.get('./../static/posts.json')
+      this.$http.get('https://vuedemo-864f4.firebaseio.com/posts.json')
                 .then(function (data) {
-                   // console.log(data);//请求对象 
-                  this.blogs = data.body.slice(0,10);//展示10条数据
+                  console.log(data.json());//请求对象 
+                  return data.json();
+                  // data数据不在是个数组 而是一个对象
+                  // this.blogs = data.body.slice(0,10);//展示10条数据
+                })
+                .then(function(data){
+                  var blogsArray = [];
+                  for(let key in data){
+                    console.log(key);//key为数据库所创建的唯一标识  --> 赋给id
+                    console.log(data[key]);//打印出每个对象的属性等等
+                    data[key].id = key;//给对象添加属性id
+                    blogsArray.push(data[key]);
+                  }
+                  //console.log(blogsArray);
+                  this.blogs = blogsArray;
+                  console.log(this.blogs);
                 })
   },
   computed:{
@@ -50,7 +68,7 @@ export default {
         return value.toUpperCase();
     },
   },
-  //指令私有化方式 local Api
+  //指令私有化方式 local Api 改变h2标签颜色
   directives: {
       'rainbow':{//对象
         bind (el,binding,vnode){
@@ -73,7 +91,7 @@ h1{
 .single-blog{
     padding:20px;
     margin:20px 0;
-    box-sizing:border-box;/**/
+    box-sizing:border-box;/*不会超过盒子容器*/
     background: #eee;
     border:1px dotted #aaa;
 }

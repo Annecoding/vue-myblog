@@ -28,7 +28,7 @@ Vue.directive('theme',{
       el.style.minWidth == "560px";
     }
     if(binding.arg == 'column'){//v-theme自定义参数传值，如果为column,则给其一个背景和padding
-      el.style.background = "#6677cc";
+      el.style.background = "cornflowerblue";
       el.style.padding = '20px';
     }
   }

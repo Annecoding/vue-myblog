@@ -1,5 +1,5 @@
 <template>
-  <div id="add-blog">
+  <div id="edit-blog">
     <h2>添加博客</h2>
     <!-- 在data()里面设定，当submmited为true的时候就会提交 -->
     <form v-if="!submmited">
@@ -29,7 +29,7 @@
             </option>
         </select>
         <!-- prevent：阻止页面刷新 -->
-        <button v-on:click.prevent="post">添加博客</button>
+        <button v-on:click.prevent="post">编辑博客</button>
     </form>
 
     <!-- 只有为真才会展示，点击【添加博客】之后，this.submmited == true ，所以这时候submmited为真-->
@@ -56,22 +56,32 @@
 export default {
   //https://jsonplaceholder.typicode.com/
   //https://jsonplaceholder.typicode.com/posts
-  name: 'add-blog',
+  name: 'edit-blog',
   data () {
     return {
-      blog:{
-          title:"",
-          content:"",
-          categories:[],//复选框  存入数组
-          author:"",
-      },
+      id:this.$route.params.id,
+    //   blog:{
+    //       title:"",
+    //       content:"",
+    //       categories:[],//复选框  存入数组
+    //       author:"",
+    //   },
+      blog:{},
       authors:["Anne","Sanqi","Ami"],
       submmited:false//默认为假 是否已经提交了事件 什么时候会展示  点击之后为真
     }
-  },
+  }, 
   methods:{
-      post:function () { //提交所获得的数据
-          this.$http.post("https://vuedemo-864f4.firebaseio.com/posts.json",this.blog
+      fetchData(){
+          console.log(this.id);//获取到的id
+          this.$http.get("https://vuedemo-864f4.firebaseio.com/posts/" + this.id + ".json")
+                    .then(response => {
+                        console.log(response.body);
+                        this.blog = response.body;
+                    })
+      },
+      post:function () { //编辑所获得的数据
+          this.$http.put("https://vuedemo-864f4.firebaseio.com/posts/" + this.id + ".json",this.blog
         //   {
         //                   title:this.blog.title,
         //                   body:this.blog.content,
@@ -82,16 +92,19 @@ export default {
               this.submmited = true;//点击添加博客按钮 submmited就变为true 来提交表单事件 --> 添加成功之后给个显示
           })
       }
+  },
+  created(){//进入编辑页面先请求数据回显
+    this.fetchData();//调用一个方法
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#add-blog *{
+#edit-blog *{
     box-sizing: border-box;
 }
-#add-blog{
+#edit-blog{
     margin: 20px auto;
     max-width: 600px;
     padding: 20px;

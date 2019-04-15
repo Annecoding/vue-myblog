@@ -25,13 +25,13 @@ ul{
     margin: 0;
 }
 li{
-    display: inline-block;/**/
+    display: inline-block;
     margin: 0 10px;
 }
 /* 元素为<a></a>标签 */
 a{
     color:#fff;
-    text-decoration:none;
+    text-decoration:none;/*没有文本装饰  删除线下划线等*/
     padding:12px;
     border-radius: 5px; 
 }
