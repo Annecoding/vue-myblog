@@ -40,7 +40,8 @@ export default {
     },
     methods:{//根据id删除数据
         deleteSingleBlog(){
-            this.$http.delete('/posts/'+ this.id + ".json")
+            // this.$http.delete('/posts/'+ this.id + ".json")
+            axios.delete('/posts/'+ this.id + ".json")
                       .then(response =>{
                           this.$router.push({path:'/'})
                       })

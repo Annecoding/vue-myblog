@@ -1,6 +1,6 @@
 <template>
   <div id="edit-blog">
-    <h2>添加博客</h2>
+    <h2>编辑博客</h2>
     <!-- 在data()里面设定，当submmited为true的时候就会提交 -->
     <form v-if="!submmited">
         <label>博客标题</label>
