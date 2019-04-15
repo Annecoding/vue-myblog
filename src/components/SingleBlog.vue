@@ -27,7 +27,7 @@ export default {
     // 请求showblogs中的id  再把id给blog
     created(){
         //this.$http.get('https://vuedemo-864f4.firebaseio.com/posts/'+ this.id + ".json")
-        axios.get('https://vuedemo-864f4.firebaseio.com/posts/'+ this.id + ".json")
+        axios.get('/posts/'+ this.id + ".json")
                   .then((data) => {//使用箭头函数可以使用上层this  箭头函数不会改变this指向
                     console.log(data);
                     //this.blog = data.body;
@@ -40,7 +40,7 @@ export default {
     },
     methods:{//根据id删除数据
         deleteSingleBlog(){
-            this.$http.delete('https://vuedemo-864f4.firebaseio.com/posts/'+ this.id + ".json")
+            this.$http.delete('/posts/'+ this.id + ".json")
                       .then(response =>{
                           this.$router.push({path:'/'})
                       })

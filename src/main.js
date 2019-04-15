@@ -6,6 +6,14 @@ import VueResource from 'vue-resource'
 import VueRouter from 'vue-router';
 import App from './App'
 import Routes from './routes'
+import axios from 'axios'
+
+//全局配置
+axios.defaults.baseURL = 'https://vuedemo-864f4.firebaseio.com'
+// axios.defaults.headers.common['Authorization'] = 'Token'//请求数据时候，比如登录 要求有tocken的值 只有tocken验证成功  才可以登录
+// axios.defaults.headers.post['Contnet-type'] = 'application/urlencode'
+// axios.defaults.headers.get['Accepts'] = 'application/json'
+
 
 Vue.config.productionTip = false
 Vue.use(VueResource)

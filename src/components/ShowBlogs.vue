@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import axios from 'axios';//局部使用
+//import axios from 'axios';//局部使用
+import axios from '../axios-auth';//引入自定义的全局URL
 export default {
   name: 'show-blogs',
   data () {
@@ -34,7 +35,7 @@ export default {
   },
   created(){//请求数据
       // this.$http.get('https://vuedemo-864f4.firebaseio.com/posts.json')
-      axios.get('https://vuedemo-864f4.firebaseio.com/posts.json')
+      axios.get('/posts.json')
                 .then(function (data) {
                   // console.log(data.json());//请求对象 
                   // return data.json();
