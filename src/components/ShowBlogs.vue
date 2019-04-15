@@ -4,6 +4,7 @@
     <h1>博客总览</h1>
     <input type="text"  v-model="search" placeholder="搜索">
     <!-- 遍历出所有的博客内容 filterBlogs -->
+    <!-- key值只能是string、number，不能是对象 -->
     <div v-for="blog in filteredBlogs" class="single-blog">
         <!-- 自定义指令v-rainbow使用  让标题改变颜色 -->
         <!-- 数据值都变成大写  过滤器实现 左边为拿到的值 用value接收-->
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import axios from 'axios';//局部使用
 export default {
   name: 'show-blogs',
   data () {
@@ -31,24 +33,27 @@ export default {
     }
   },
   created(){//请求数据
-      this.$http.get('https://vuedemo-864f4.firebaseio.com/posts.json')
+      // this.$http.get('https://vuedemo-864f4.firebaseio.com/posts.json')
+      axios.get('https://vuedemo-864f4.firebaseio.com/posts.json')
                 .then(function (data) {
-                  console.log(data.json());//请求对象 
-                  return data.json();
+                  // console.log(data.json());//请求对象 
+                  // return data.json();
                   // data数据不在是个数组 而是一个对象
                   // this.blogs = data.body.slice(0,10);//展示10条数据
+                  // console.log(data.data);//axios
+                  return data.data;
                 })
-                .then(function(data){
+                .then((data) => {
                   var blogsArray = [];
                   for(let key in data){
-                    console.log(key);//key为数据库所创建的唯一标识  --> 赋给id
-                    console.log(data[key]);//打印出每个对象的属性等等
+                    // console.log(key);//key为数据库所创建的唯一标识  --> 赋给id
+                    // console.log(data[key]);//打印出每个对象的属性等等
                     data[key].id = key;//给对象添加属性id
                     blogsArray.push(data[key]);
                   }
                   //console.log(blogsArray);
                   this.blogs = blogsArray;
-                  console.log(this.blogs);
+                  // console.log(this.blogs);
                 })
   },
   computed:{

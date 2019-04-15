@@ -3,7 +3,8 @@
     <div id="single-blog">
         <h1>{{blog.title}}</h1>
         <p>作者：{{blog.author}}</p>
-        <p v-for="category in blog.categories">分类：{{category}}</p>
+        <!-- :key数据优化 -->
+        <p v-for="category in blog.categories" :key="category">分类：{{category}}</p>
   
         <article>正文：{{blog.content}}</article>
         <button @click="deleteSingleBlog()">删除</button>
@@ -14,6 +15,7 @@
 
 // 点击添加博客的时候  需要给个id
 <script>
+import axios from 'axios';//局部使用
 export default {
     name:"single-blog",
     data(){
@@ -24,15 +26,17 @@ export default {
     },
     // 请求showblogs中的id  再把id给blog
     created(){
-        this.$http.get('https://vuedemo-864f4.firebaseio.com/posts/'+ this.id + ".json")
-                  .then(function(data){
-                      console.log(data);
+        //this.$http.get('https://vuedemo-864f4.firebaseio.com/posts/'+ this.id + ".json")
+        axios.get('https://vuedemo-864f4.firebaseio.com/posts/'+ this.id + ".json")
+                  .then((data) => {//使用箭头函数可以使用上层this  箭头函数不会改变this指向
+                    console.log(data);
                     //this.blog = data.body;
-                    return data.json();
+                    // return data.json();
+                    this.blog = data.data;
                   })
-                  .then(function (data) {
-                      this.blog = data;
-                  })
+                //   .then(function (data) {
+                //       this.blog = data;
+                //   })
     },
     methods:{//根据id删除数据
         deleteSingleBlog(){

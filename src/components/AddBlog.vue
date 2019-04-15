@@ -24,7 +24,7 @@
         <!-- 多个数据就放在数组里面 -->
         <!-- v-model绑定数据是选择了某个人  就放进去数据  -->
         <select v-model="blog.author">
-            <option v-for="author in authors">
+            <option v-for="author in authors" :key="author">
                 {{author}}
             </option>
         </select>
@@ -44,7 +44,7 @@
         <p>{{blog.content}}</p>
         <p>博客分类</p>
         <ul>
-            <li v-for="category in blog.categories">{{category}}</li>
+            <li v-for="category in blog.categories" :key="category">{{category}}</li>
         </ul>
         <p>作者：{{blog.author}}</p>
     </div>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import axios from 'axios';//局部使用
 export default {
   //https://jsonplaceholder.typicode.com/
   //https://jsonplaceholder.typicode.com/posts
@@ -71,15 +72,19 @@ export default {
   },
   methods:{
       post:function () { //提交所获得的数据
-          this.$http.post("https://vuedemo-864f4.firebaseio.com/posts.json",this.blog
+        //   this.$http.post("https://vuedemo-864f4.firebaseio.com/posts.json",this.blog
         //   {
         //                   title:this.blog.title,
         //                   body:this.blog.content,
         //                   userId:1
         //   }
-          ).then(function(data){ //查看是否提交成功，成功则返回内容
-              console.log(data);
+        // var _this = this;//axios中当前this指向的是拥有function
+        axios.post("https://vuedemo-864f4.firebaseio.com/posts.json",this.blog
+        //   ).then(function(data){ //查看是否提交成功，成功则返回内容
+           ).then((data) => {//使用ES6语法，箭头函数拿到的this为上一层的this，而不是axios不知道的this
+            //   console.log(data);
               this.submmited = true;//点击添加博客按钮 submmited就变为true 来提交表单事件 --> 添加成功之后给个显示
+            // _this.submmited = true;
           })
       }
   }
@@ -119,11 +124,11 @@ textarea{
 button{
     display: block;
     margin:20px 0;
-    background: cadetblue;
+    background: cornflowerblue;
     color:#fff;
     border:0;
     padding:14px;
-    border-radius:4px;
+    border-radius:10px;
     font-size: 18px;
     cursor: pointer; /**/ 
 }
