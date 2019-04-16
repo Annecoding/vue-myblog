@@ -9,3 +9,5 @@
 ![](https://ws4.sinaimg.cn/large/006tNc79ly1g23fv02l2yj312e0n0wfr.jpg)
 ### 编辑博客 数据回显
 ![](https://ws2.sinaimg.cn/large/006tNc79ly1g23fv8jm0dj30u016otcq.jpg)
+### show-blogs中`router-link`跳转到singleblog页面
+![](https://ws4.sinaimg.cn/large/006tNc79ly1g2475tug1ej30so06yabt.jpg)
