@@ -8,7 +8,7 @@
     <div v-for="blog in filteredBlogs" class="single-blog">
         <!-- 自定义指令v-rainbow使用  让标题改变颜色 -->
         <!-- 数据值都变成大写  过滤器实现 左边为拿到的值 用value接收-->
-        <!-- 路由跳转--router.js--到单个的blog，顺便传过去id   v-bind绑定数据 showblog:id--singleblog:id -->
+        <!-- 点击标跳转（router-link -- a标签），路由跳转--router.js--到单个的blog，顺便传过去id   v-bind绑定数据为变量 showblog:id--singleblog:id -->
         <router-link v-bind:to="'/blog/' + blog.id">
           <h2 v-rainbow>{{blog.title | to-uppercase}}</h2>
         </router-link>
@@ -16,7 +16,7 @@
         <article>
           <!-- {{blog.body | snippet}} -->
            {{blog.content | snippet}} 
-         </article>
+        </article>
     </div>
   </div>
 </template>
